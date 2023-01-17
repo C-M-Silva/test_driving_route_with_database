@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <style>
+      /* Add some CSS styles for the page */
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+      }
+
+      .album {
+        display: inline-block;
+        width: 300px;
+        margin: 10px;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      .album-title {
+        font-size: 1.5em;
+        margin-top: 10px;
+        margin-bottom: 5px;
+      }
+
+      .album-year {
+        font-size: 1.2em;
+        color: gray;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Albums</h1>
+    <% @all_artists.each do |artist| %>
+      <div class="album">
+        <div class="album-info">
+          <h2 class="album-title"> <%= artist.name %> </h2>
+          <a href="/artists/<%= artist.id %>">Artist page</a>
+          <html>
+        </div>
+      </div>
+    <% end %>
+  </body>
+</html>
