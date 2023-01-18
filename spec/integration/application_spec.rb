@@ -10,30 +10,23 @@ describe Application do
   # class so our tests work.
   let(:app) { Application.new }
 
-  context 'GET /albums_check' do
-    it 'should return the list of albums' do 
-      response = get('/albums_check')
-
-      expected_response = 'Surfer Rosa, Waterloo, Super Trouper, Bossanova, Lover, Folklore, I Put a Spell on You, Baltimore, Here Comes the Sun, Fodder on My Wings, Ring Ring'
+  context "GET /create_album/new" do 
+    it 'should return the form to add a new album' do 
+      response = get('/create_album/new')
 
       expect(response.status).to eq 200
-      expect(response.body).to eq (expected_response)
-
+      expect(response.body).to include ('<form action="/create_album" method="POST">')
     end
   end
 
-  context "Post /create_albums" do 
+  context "Post /create_album" do 
     it 'allows the user to create a new album' do
-      expected_response = 'Surfer Rosa, Waterloo, Super Trouper, Bossanova, Lover, Folklore, I Put a Spell on You, Baltimore, Here Comes the Sun, Fodder on My Wings, Ring Ring, Voyage'
+      response = post('/create_album', title: 'Something', release_year: 1999, artist_id: 1)
 
-      response = post('/create_album', title: "Voyage", release_year: 2022, artist_id: 1)
-      
       expect(response.status).to eq 200
-
-      response = get('/albums_check')
-
-      expect(response.body).to eq (expected_response)
-      
+      expect(response.body).to include 'Something'
+      expect(response.body).to include 'Release Year: 1999'
+      expect(response.body).to include 'Artist ID : 1'
     end
   end
 
@@ -75,6 +68,24 @@ describe Application do
       expect(response.body).to include ('<h2 class="album-title"> Pixies </h2>')
       expect(response.body).to include ('<h2 class="album-title"> ABBA </h2>')
       
+    end
+  end
+
+  context 'GET /create_artist' do 
+    it 'creates a new artist' do 
+      response = get('/create_artist')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include '<form action="/artist_created" method="POST">'
+    end
+  end
+
+  context 'POST /artist_created' do 
+    it 'creates a new artist' do 
+      response = post('/artist_created', name: 'test', genre: 'rock')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include 'test'
     end
   end
 end

@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <style>
+      body {
+        text-align: center;
+      }
+      h1, p {
+        text-align: center;
+        font-family: 'Roboto', sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <h1> <%= @result.title %> </h1>
+    <p>
+      Release Year: <%= @result.release_year %>
+      Artist ID : <%= @result.artist_id %>
+    </p>
+  </body>
+</html>
